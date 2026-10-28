@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Panel de control | Senderismo LoRa</title>
+    <title>Panel de control</title>
     <link rel="stylesheet" href="../assets/css/base.css">
     <link rel="stylesheet" href="../assets/css/components.css">
     <link rel="stylesheet" href="../assets/css/pages/dashboard.css">
@@ -15,8 +15,8 @@
 <body class="dashboard">
     <header class="site-header">
         <div class="site-header-inner"><a class="brand" href="./dashboard.html" aria-label="Inicio"><span
-                    class="brand-mark" aria-hidden="true">S</span><span class="brand-name">Senderismo
-                    <span>LoRa</span></span></a>
+                    class="brand-mark" aria-hidden="true">S</span><span class="brand-name">Nombre
+                    <span>cool</span></span></a>
             <div class="header-right"><span class="header-greeting" data-user-greeting>¡Hola!</span><button
                     class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="user-menu"
                     aria-label="Abrir menú">&#9776;</button></div>
@@ -26,10 +26,8 @@
     </header>
     <main class="page-wrap">
         <div class="page-head">
-            <div>
-                <p class="eyebrow">Panel de control · <span data-role-label>Usuario</span></p>
-                <h1>Tu espacio de seguimiento</h1>
-                <p>Consulta y administra la información disponible según tu rol.</p>
+            <div>   
+                <h1>Seguimiento de senderistas</h1>
             </div>
         </div>
         <!-- SENDERISTA: la posición del dispositivo no se muestra a su propietario. -->
@@ -49,7 +47,7 @@
                 <div class="device-layout">
                     <div class="device-preview">
                         <div class="device-graphic" aria-label="Representación ilustrativa del dispositivo">S</div><span
-                            class="device-caption">Representación conceptual del nodo emisor</span>
+                            class="device-caption">Tu dispositivo</span>
                     </div>
                     <div class="device-details">
                         <h2>Dispositivo <span class="mono" id="device-id">—</span></h2>
@@ -114,10 +112,10 @@
                 <div class="split-content">
                     <section>
                         <h3>Vincular monitor</h3>
-                        <p class="muted small">Busca a un monitor por su identificador para enviarle una invitación.</p>
+                        <p class="muted small">Busca a un monitor por su ID para enviarle una invitación.</p>
                         <form id="monitor-search-form" class="stack">
-                            <div class="field"><label for="monitor-identifier">Identificador de monitor</label><input
-                                    id="monitor-identifier" required placeholder="Identificador de usuario"></div>
+                            <div class="field"><label for="monitor-identifier">ID de monitor</label><input
+                                    id="monitor-identifier" required placeholder="ID de usuario"></div>
                             <button type="submit" class="btn">Buscar monitor</button>
                         </form>
                         <div id="monitor-search-message" class="message" hidden></div>
@@ -175,8 +173,6 @@
                                 <dd class="mono" id="last-energy">—</dd>
                             </div>
                         </dl>
-                        <p class="inline-note">La información corresponde a la última trama recibida. No se garantiza
-                            seguimiento continuo.</p>
                     </div>
                 </div>
             </section>
@@ -185,7 +181,7 @@
                     <h2>Vinculaciones</h2><button id="refresh-monitor-links" class="btn btn-small btn-secondary"
                         type="button">Actualizar</button>
                 </div>
-                <p class="muted small">Tu identificador para recibir invitaciones: <strong id="monitor-own-id"
+                <p class="muted small">Tu ID para recibir invitaciones: <strong id="monitor-own-id"
                         class="mono">—</strong></p>
                 <div id="monitor-links-message" hidden></div>
                 <div class="split-content">
