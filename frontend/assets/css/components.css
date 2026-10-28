@@ -1,0 +1,161 @@
+.auth-frame {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 2rem 1rem
+}
+
+.auth-card {
+    width: min(100%, 445px);
+    background: white;
+    padding: 2.25rem;
+    border: 1px solid var(--line);
+    border-radius: 25px;
+    box-shadow: var(--shadow)
+}
+
+.auth-brand {
+    display: flex;
+    gap: .8rem;
+    align-items: center;
+    margin-bottom: 1.3rem
+}
+
+.auth-brand h1 {
+    margin: 0;
+    font-size: 1.65rem;
+    line-height: 1.2
+}
+
+.auth-brand p {
+    margin: .25rem 0 0;
+    color: var(--muted);
+    font-size: .82rem
+}
+
+.auth-card .field {
+    margin-bottom: 1rem
+}
+
+.auth-card input {
+    padding: .72rem .85rem
+}
+
+.auth-card .btn {
+    margin-top: .2rem
+}
+
+.auth-footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: .83rem;
+    margin: 1.3rem 0 0
+}
+
+.auth-card .logo-subtitle {
+    color: var(--primary-dark);
+    font-weight: 600;
+    font-size: .77rem
+}
+
+.auth-help {
+    font-size: .78rem;
+    color: var(--muted);
+    margin: .9rem 0 0
+}
+
+.check-row {
+    display: flex;
+    align-items: center;
+    gap: .62rem;
+    font-size: .84rem;
+    font-weight: 400;
+    cursor: pointer
+}
+
+.check-row input {
+    width: 17px;
+    height: 17px;
+    accent-color: var(--primary);
+    flex: none
+}
+
+.toast-region {
+    position: fixed;
+    z-index: 999;
+    bottom: 20px;
+    right: 20px;
+    max-width: min(410px, calc(100vw - 40px))
+}
+
+.toast {
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--primary);
+    border-radius: 12px;
+    background: #fff;
+    color: var(--ink);
+    box-shadow: var(--shadow);
+    padding: .8rem 1rem;
+    margin-top: .5rem;
+    font-size: .86rem
+}
+
+.toast.error {
+    border-left-color: var(--danger)
+}
+
+.toast.warning {
+    border-left-color: var(--warning)
+}
+
+.toolbar {
+    display: flex;
+    gap: .6rem;
+    align-items: center;
+    flex-wrap: wrap
+}
+
+.metric {
+    background: #F9FAF7;
+    border: 1px solid var(--line);
+    border-radius: 15px;
+    padding: 1rem
+}
+
+.metric label {
+    display: block;
+    color: var(--muted);
+    font-size: .79rem
+}
+
+.metric strong {
+    font-size: 1.35rem;
+    display: block;
+    color: var(--ink)
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid #DCE3D3;
+    border-top-color: var(--primary-dark);
+    border-radius: 50%;
+    animation: rotate .8s linear infinite;
+    margin: auto
+}
+
+@keyframes rotate {
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+@media(max-width:550px) {
+    .auth-card {
+        padding: 1.45rem
+    }
+
+    .auth-brand h1 {
+        font-size: 1.4rem
+    }
+}

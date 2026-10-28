@@ -1,64 +1,251 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="es">
 
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>
-        Sistema de Localización
-    </title>
-
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet/dist/leaflet.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../css/base.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../css/components.css"
-    >
-
-    <link
-        rel="stylesheet"
-        href="../css/pages/dashboard.css"
-    >
-
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Panel de control | Senderismo LoRa</title>
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/pages/dashboard.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzxZKjhaTUkYNx6K6Nd6aS7ljxY=" crossorigin="">
 </head>
 
-<body>
-
-    <main class="dashboard">
-
-        <section class="map-container">
-
-            <div id="map"></div>
-
+<body class="dashboard">
+    <header class="site-header">
+        <div class="site-header-inner"><a class="brand" href="./dashboard.html" aria-label="Inicio"><span
+                    class="brand-mark" aria-hidden="true">S</span><span class="brand-name">Senderismo
+                    <span>LoRa</span></span></a>
+            <div class="header-right"><span class="header-greeting" data-user-greeting>¡Hola!</span><button
+                    class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="user-menu"
+                    aria-label="Abrir menú">&#9776;</button></div>
+            <nav id="user-menu" class="user-menu" data-user-menu hidden><a href="./dashboard.html">Panel
+                    principal</a><button type="button" data-logout>Cerrar sesión</button></nav>
+        </div>
+    </header>
+    <main class="page-wrap">
+        <div class="page-head">
+            <div>
+                <p class="eyebrow">Panel de control · <span data-role-label>Usuario</span></p>
+                <h1>Tu espacio de seguimiento</h1>
+                <p>Consulta y administra la información disponible según tu rol.</p>
+            </div>
+        </div>
+        <!-- SENDERISTA: la posición del dispositivo no se muestra a su propietario. -->
+        <section id="senderista-dashboard" hidden aria-label="Panel de senderista">
+            <div class="tabs" role="tablist" aria-label="Secciones de senderista">
+                <button class="tab" role="tab" aria-controls="sender-device"
+                    aria-selected="true">Dispositivo</button><button class="tab" role="tab"
+                    aria-controls="sender-routes" aria-selected="false">Rutas</button><button class="tab" role="tab"
+                    aria-controls="sender-monitors" aria-selected="false">Monitor</button>
+            </div>
+            <section class="tab-panel card" role="tabpanel" id="sender-device">
+                <div class="section-title">
+                    <h2>Mi dispositivo</h2><button id="refresh-device" class="btn btn-small btn-secondary"
+                        type="button">Actualizar</button>
+                </div>
+                <div id="device-message" hidden></div>
+                <div class="device-layout">
+                    <div class="device-preview">
+                        <div class="device-graphic" aria-label="Representación ilustrativa del dispositivo">S</div><span
+                            class="device-caption">Representación conceptual del nodo emisor</span>
+                    </div>
+                    <div class="device-details">
+                        <h2>Dispositivo <span class="mono" id="device-id">—</span></h2>
+                        <dl class="data-list">
+                            <div>
+                                <dt>Estado</dt>
+                                <dd id="device-status">—</dd>
+                            </div>
+                            <div>
+                                <dt>Código de vinculación</dt>
+                                <dd class="mono" id="device-code">—</dd>
+                            </div>
+                            <div>
+                                <dt>Batería principal</dt>
+                                <dd class="mono" id="device-battery">—</dd>
+                            </div>
+                            <div>
+                                <dt>Estado energético auxiliar</dt>
+                                <dd class="mono" id="device-aux">—</dd>
+                            </div>
+                            <div>
+                                <dt>Monitor vinculado</dt>
+                                <dd id="device-monitor">—</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </section>
+            <section class="tab-panel card" role="tabpanel" id="sender-routes" hidden>
+                <div class="section-title">
+                    <h2>Mis rutas</h2>
+                </div>
+                <div class="split-content">
+                    <section>
+                        <h3 id="route-form-title">Registrar ruta</h3>
+                        <form id="route-form" class="stack"><input id="route-id" type="hidden">
+                            <div class="field"><label for="route-name">Nombre de la ruta</label><input id="route-name"
+                                    maxlength="100" required placeholder="Ej. Sendero norte"></div>
+                            <div class="field"><label for="route-destination">Destino</label><input
+                                    id="route-destination" maxlength="150" required placeholder="Ej. Mirador principal">
+                            </div>
+                            <div class="field"><label for="route-date">Fecha y hora de inicio</label><input
+                                    id="route-date" type="datetime-local" required></div>
+                            <div id="route-message" class="message" hidden></div>
+                            <div class="form-actions"><button id="cancel-route" class="btn btn-secondary" type="button"
+                                    hidden>Cancelar edición</button><button class="btn" type="submit">Guardar
+                                    ruta</button></div>
+                        </form>
+                    </section>
+                    <section class="list-divider">
+                        <h3>Historial de rutas</h3>
+                        <div id="routes-list" class="items">
+                            <div class="empty">Cargando rutas...</div>
+                        </div>
+                    </section>
+                </div>
+            </section>
+            <section class="tab-panel card" role="tabpanel" id="sender-monitors" hidden>
+                <div class="section-title">
+                    <h2>Mis monitores</h2>
+                </div>
+                <div class="split-content">
+                    <section>
+                        <h3>Vincular monitor</h3>
+                        <p class="muted small">Busca a un monitor por su identificador para enviarle una invitación.</p>
+                        <form id="monitor-search-form" class="stack">
+                            <div class="field"><label for="monitor-identifier">Identificador de monitor</label><input
+                                    id="monitor-identifier" required placeholder="Identificador de usuario"></div>
+                            <button type="submit" class="btn">Buscar monitor</button>
+                        </form>
+                        <div id="monitor-search-message" class="message" hidden></div>
+                        <form id="monitor-link-form" hidden>
+                            <div class="item">
+                                <h3 id="monitor-result-name"></h3>
+                                <p id="monitor-result-email"></p><button type="submit" class="btn btn-small">Enviar
+                                    invitación</button>
+                            </div>
+                        </form>
+                    </section>
+                    <section class="list-divider">
+                        <h3>Vinculaciones</h3>
+                        <div id="links-message" class="message" hidden></div>
+                        <div id="sender-links" class="items">
+                            <div class="empty">Cargando monitores...</div>
+                        </div>
+                    </section>
+                </div>
+            </section>
         </section>
-
+        <!-- MONITOR: únicamente dispositivos vinculados y autorizados. -->
+        <section id="monitor-dashboard" hidden aria-label="Panel de monitor">
+            <div class="tabs" role="tablist" aria-label="Secciones de monitor"><button class="tab" role="tab"
+                    aria-controls="monitor-location" aria-selected="true">Ubicación</button><button class="tab"
+                    role="tab" aria-controls="monitor-associations" aria-selected="false">Vinculación</button></div>
+            <section class="tab-panel card" id="monitor-location" role="tabpanel">
+                <div class="section-title">
+                    <h2>Ubicación del senderista</h2>
+                    <div class="toolbar"><button id="refresh-latest" class="btn btn-secondary btn-small"
+                            type="button">Actualizar ubicación</button><a class="btn btn-small" href="./history.html"
+                            id="history-open" hidden>Ver historial</a></div>
+                </div>
+                <div class="field" style="max-width:340px;margin-bottom:1rem"><label
+                        for="monitor-device-select">Senderista vinculado</label><select id="monitor-device-select">
+                        <option value="">Selecciona un senderista</option>
+                    </select></div>
+                <div id="latest-message" class="message" hidden></div>
+                <div class="profile-grid">
+                    <div id="latest-map" class="map" role="region" aria-label="Mapa de última ubicación"></div>
+                    <div class="map-side">
+                        <p class="eyebrow">Última posición registrada</p>
+                        <h2 id="monitor-name">Sin senderista vinculado</h2>
+                        <dl class="data-list">
+                            <div>
+                                <dt>Coordenadas GPS</dt>
+                                <dd class="mono" id="last-position">—</dd>
+                            </div>
+                            <div>
+                                <dt>Última actualización</dt>
+                                <dd class="mono" id="last-updated">—</dd>
+                            </div>
+                            <div>
+                                <dt>Estado energético reportado</dt>
+                                <dd class="mono" id="last-energy">—</dd>
+                            </div>
+                        </dl>
+                        <p class="inline-note">La información corresponde a la última trama recibida. No se garantiza
+                            seguimiento continuo.</p>
+                    </div>
+                </div>
+            </section>
+            <section class="tab-panel card" id="monitor-associations" role="tabpanel" hidden>
+                <div class="section-title">
+                    <h2>Vinculaciones</h2><button id="refresh-monitor-links" class="btn btn-small btn-secondary"
+                        type="button">Actualizar</button>
+                </div>
+                <p class="muted small">Tu identificador para recibir invitaciones: <strong id="monitor-own-id"
+                        class="mono">—</strong></p>
+                <div id="monitor-links-message" hidden></div>
+                <div class="split-content">
+                    <section>
+                        <h3>Senderistas vinculados</h3>
+                        <div id="monitor-links" class="items"></div>
+                    </section>
+                    <section class="list-divider">
+                        <h3>Invitaciones pendientes</h3>
+                        <div id="monitor-invitations" class="items"></div>
+                    </section>
+                </div>
+            </section>
+        </section>
+        <!-- ADMINISTRADOR -->
+        <section id="administrador-dashboard" hidden aria-label="Panel de administrador">
+            <div class="section-title">
+                <h2>Administración del sistema</h2><button id="refresh-admin" class="btn btn-small btn-secondary"
+                    type="button">Actualizar</button>
+            </div>
+            <div class="admin-metrics"><span class="pill">Usuarios registrados: <strong
+                        id="admin-users-count">—</strong></span><span class="pill">Dispositivos registrados: <strong
+                        id="admin-devices-count">—</strong></span></div>
+            <div class="grid-2">
+                <section class="card">
+                    <h2>Usuarios</h2>
+                    <div class="field" style="margin-bottom:1rem"><label for="admin-filter">Buscar por nombre, correo o
+                            rol</label><input id="admin-filter" type="search" placeholder="Buscar usuario..."></div>
+                    <div id="admin-message" class="message" hidden></div>
+                    <div class="table-scroll">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Correo</th>
+                                    <th>Estado</th>
+                                    <th>Fecha</th>
+                                    <th>Rol</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-users-body"></tbody>
+                        </table>
+                    </div>
+                    <div id="admin-users-placeholder" hidden></div>
+                </section>
+                <section class="card">
+                    <h2>Estado de servicios</h2>
+                    <p class="muted small">Resumen proporcionado por el servidor de la Raspberry Pi.</p>
+                    <div id="admin-health">
+                        <div class="empty">Cargando...</div>
+                    </div>
+                </section>
+            </div>
+        </section>
     </main>
-
-
-    <script
-        src="https://unpkg.com/leaflet/dist/leaflet.js">
-    </script>
-
-    <script
-        type="module"
-        src="../js/pages/dashboard.js">
-    </script>
-
+    <footer class="site-footer">Sistema de localización para senderistas · Proyecto Terminal II · UPIITA-IPN</footer>
+    <div data-toast-region class="toast-region" aria-live="polite"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script type="module" src="../assets/js/pages/dashboard.js"></script>
 </body>
 
 </html>

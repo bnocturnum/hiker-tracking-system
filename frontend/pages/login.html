@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Iniciar sesión | Senderismo LoRa</title>
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/pages/login.css">
+</head>
+
+<body class="login-page">
+    <main class="auth-frame">
+        <section class="auth-card" aria-labelledby="page-title">
+            <div class="auth-brand">
+                <div class="brand-mark" aria-hidden="true">S</div>
+                <div>
+                    <h1 id="page-title">Inicia sesión</h1>
+                    <p>¿Aún no eres parte? <a href="./register.html">Crea una cuenta</a></p>
+                </div>
+            </div>
+            <form id="login-form">
+                <div class="field"><label for="correo">Correo electrónico</label><input id="correo" name="correo"
+                        type="email" required autocomplete="email" placeholder="correo@ejemplo.com"></div>
+                <div class="field"><label for="contrasena">Contraseña</label><input id="contrasena" name="contrasena"
+                        type="password" required autocomplete="current-password" placeholder="Tu contraseña"></div>
+                <div id="form-message" class="message" hidden role="status"></div><button class="btn"
+                    type="submit">Iniciar sesión</button>
+            </form>
+            <p class="auth-footer">Monitoreo de senderistas mediante GPS y LoRa</p>
+        </section>
+    </main>
+    <script type="module" src="../assets/js/pages/login.js"></script>
+</body>
+
+</html>

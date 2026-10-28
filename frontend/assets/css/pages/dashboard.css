@@ -1,0 +1,158 @@
+.dashboard .device-layout {
+    display: grid;
+    grid-template-columns: minmax(220px, .94fr) 1.06fr;
+    gap: 1.25rem;
+    align-items: stretch
+}
+
+.dashboard .device-preview {
+    min-height: 315px;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #F1F3EC, #DCE2D6);
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: hidden
+}
+
+.device-graphic {
+    width: 125px;
+    height: 184px;
+    border: 9px solid #6B7A63;
+    border-radius: 26px;
+    box-shadow: 12px 17px 23px #4b5c4b1d;
+    transform: rotate(-8deg);
+    background: #F9FAF6;
+    display: grid;
+    place-items: center;
+    color: var(--primary-dark);
+    font-size: 2rem;
+    font-weight: 700
+}
+
+.device-graphic:before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 48px;
+    width: 34px;
+    height: 5px;
+    border-radius: 10px;
+    background: #A1AC98
+}
+
+.device-caption {
+    position: absolute;
+    bottom: 19px;
+    left: 16px;
+    right: 16px;
+    text-align: center;
+    font-size: .75rem;
+    color: #63705e
+}
+
+.dashboard .device-details {
+    padding: .45rem
+}
+
+.dashboard .device-details h2 {
+    margin: .1rem 0 1.3rem
+}
+
+.dashboard .info-panel {
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 1.2rem
+}
+
+.dashboard .split-content {
+    display: grid;
+    grid-template-columns: .9fr 1.1fr;
+    gap: 1.2rem
+}
+
+.dashboard .list-divider {
+    border-left: 1px solid var(--line);
+    padding-left: 1.2rem
+}
+
+.dashboard .profile-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.45fr) minmax(250px, .8fr);
+    gap: 1.2rem
+}
+
+.dashboard .profile-grid .map {
+    height: 365px
+}
+
+.dashboard .map-side h2 {
+    margin: 0 0 .25rem;
+    font-size: 1.3rem
+}
+
+.dashboard .map-side .data-list {
+    margin-top: 1.1rem
+}
+
+.dashboard .small-avatar {
+    height: 34px;
+    width: 34px;
+    display: grid;
+    place-items: center;
+    background: #EEF1E6;
+    border-radius: 12px;
+    color: var(--primary-dark);
+    font-weight: 700
+}
+
+.dashboard .admin-metrics {
+    display: flex;
+    gap: .8rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem
+}
+
+.dashboard .admin-metrics .pill {
+    padding: .65rem 1rem
+}
+
+.dashboard .role-caption {
+    color: var(--muted);
+    font-size: .83rem;
+    margin: .2rem 0 1.2rem
+}
+
+.dashboard .admin-service-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--line);
+    padding: .8rem 0;
+    font-size: .85rem
+}
+
+.dashboard .admin-service-row:last-child {
+    border-bottom: none
+}
+
+@media(max-width:850px) {
+
+    .dashboard .device-layout,
+    .dashboard .split-content,
+    .dashboard .profile-grid {
+        grid-template-columns: 1fr
+    }
+
+    .dashboard .list-divider {
+        border-left: 0;
+        padding: 0;
+        border-top: 1px solid var(--line);
+        padding-top: 1.2rem
+    }
+
+    .dashboard .device-preview {
+        min-height: 250px
+    }
+}

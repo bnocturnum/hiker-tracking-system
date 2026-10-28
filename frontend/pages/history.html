@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Historial de ubicaciones | Senderismo LoRa</title>
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/pages/history.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzxZKjhaTUkYNx6K6Nd6aS7ljxY=" crossorigin="">
+</head>
+
+<body class="history-page">
+    <header class="site-header">
+        <div class="site-header-inner"><a class="brand" href="./dashboard.html"><span class="brand-mark">S</span><span
+                    class="brand-name">Senderismo <span>LoRa</span></span></a>
+            <div class="header-right"><span class="header-greeting" data-user-greeting>¡Hola!</span><button
+                    class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="user-menu"
+                    aria-label="Abrir menú">&#9776;</button></div>
+            <nav id="user-menu" class="user-menu" data-user-menu hidden><a href="./dashboard.html">Panel
+                    principal</a><button type="button" data-logout>Cerrar sesión</button></nav>
+        </div>
+    </header>
+    <main class="page-wrap">
+        <div class="page-head">
+            <div>
+                <p class="eyebrow">Monitoreo · historial</p>
+                <h1>Historial de ubicaciones</h1>
+                <p>Dispositivo <span id="history-device" class="mono">—</span></p>
+            </div><a class="btn btn-secondary" href="./dashboard.html">Volver al panel</a>
+        </div>
+        <section class="card" style="margin-bottom:1.2rem">
+            <form id="history-filter" class="filterbar">
+                <div class="field"><label for="from-date">Desde</label><input id="from-date" type="datetime-local">
+                </div>
+                <div class="field"><label for="to-date">Hasta</label><input id="to-date" type="datetime-local"></div>
+                <button class="btn" type="submit">Aplicar filtros</button><button class="btn btn-secondary"
+                    id="history-clear" type="button">Limpiar</button>
+            </form>
+            <div id="history-message" class="message" hidden></div>
+        </section>
+        <div class="history-layout">
+            <section class="card">
+                <div class="section-title">
+                    <h2>Trayectoria registrada</h2>
+                </div>
+                <div id="history-map" class="map" role="region" aria-label="Mapa de trayectoria"></div>
+                <p class="inline-note">Los puntos se unen en el orden de sus marcas temporales. La línea no representa
+                    necesariamente el camino exacto recorrido.</p>
+            </section>
+            <section class="card">
+                <div class="section-title">
+                    <h2>Registros GPS</h2><span class="pill"><span id="history-count" class="mono">0</span>
+                        puntos</span>
+                </div>
+                <div id="history-items" class="history-scroll">
+                    <div class="empty">Consultando registros...</div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <footer class="site-footer">Sistema de localización para senderistas · Proyecto Terminal II · UPIITA-IPN</footer>
+    <div data-toast-region class="toast-region"></div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <script type="module" src="../assets/js/pages/history.js"></script>
+</body>
+
+</html>

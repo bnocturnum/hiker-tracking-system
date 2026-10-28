@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Crear cuenta | Senderismo LoRa</title>
+    <link rel="stylesheet" href="../assets/css/base.css">
+    <link rel="stylesheet" href="../assets/css/components.css">
+    <link rel="stylesheet" href="../assets/css/pages/register.css">
+</head>
+
+<body class="register-page">
+    <main class="auth-frame">
+        <section class="auth-card" aria-labelledby="page-title">
+            <div class="auth-brand">
+                <div class="brand-mark" aria-hidden="true">S</div>
+                <div>
+                    <h1 id="page-title">Crea una cuenta</h1>
+                    <p>¿Ya eres parte? <a href="./login.html">Inicia sesión</a></p>
+                </div>
+            </div>
+            <p class="registration-intro">Regístrate como senderista si cuentas con un dispositivo; de lo contrario,
+                puedes registrarte como monitor.</p>
+            <form id="register-form">
+                <div class="field"><label for="correo">Correo electrónico</label><input id="correo" name="correo"
+                        type="email" autocomplete="email" required placeholder="correo@ejemplo.com"></div>
+                <div class="field"><label for="nombre">Nombre completo</label><input id="nombre" name="nombre"
+                        autocomplete="name" required maxlength="100" placeholder="Nombre y apellidos"></div>
+                <div class="field"><label for="contrasena">Contraseña</label><input id="contrasena" name="contrasena"
+                        type="password" autocomplete="new-password" required minlength="8"
+                        placeholder="Mínimo 8 caracteres"></div>
+                <div class="field"><label for="confirmar-contrasena">Confirmar contraseña</label><input
+                        id="confirmar-contrasena" type="password" autocomplete="new-password" required
+                        placeholder="Repite la contraseña"></div>
+                <div class="field" id="code-field"><label for="codigo-vinculacion">Código de vinculación del
+                        dispositivo</label><input id="codigo-vinculacion" name="codigo_vinculacion" maxlength="20"
+                        required placeholder="Código de tu dispositivo"></div>
+                <label class="check-row" for="no-device"><input type="checkbox" id="no-device">No cuento con dispositivo
+                    (registrarme como monitor)</label>
+                <div id="form-message" class="message" hidden role="status"></div><button type="submit"
+                    class="btn">Crear cuenta</button>
+            </form>
+        </section>
+    </main>
+    <script type="module" src="../assets/js/pages/register.js"></script>
+</body>
+
+</html>

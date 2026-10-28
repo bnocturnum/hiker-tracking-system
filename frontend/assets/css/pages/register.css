@@ -1,0 +1,27 @@
+.register-page {
+    background: radial-gradient(ellipse at 75% 0%, #E9EDDF 0%, transparent 32%), var(--background)
+}
+
+.register-page .auth-card {
+    width: min(100%, 485px)
+}
+
+.register-page .auth-card .btn {
+    float: right
+}
+
+.register-page .auth-card::after {
+    content: '';
+    display: block;
+    clear: both
+}
+
+.register-page .check-row {
+    margin: .3rem 0 1rem
+}
+
+.register-page .registration-intro {
+    margin: -.2rem 0 1.7rem;
+    color: var(--muted);
+    font-size: .86rem
+}
