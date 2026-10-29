@@ -1,0 +1,6 @@
+BEGIN;
+ALTER TABLE public.usuarios
+    ADD COLUMN IF NOT EXISTS nombres VARCHAR(100),
+    ADD COLUMN IF NOT EXISTS apellido_paterno VARCHAR(100),
+    ADD COLUMN IF NOT EXISTS apellido_materno VARCHAR(100);
+COMMIT;

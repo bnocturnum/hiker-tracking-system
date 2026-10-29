@@ -1,3 +1,4 @@
+import './dashboard-identifiers.js';
 import { api, asArray, unwrap, query } from '../api.js';
 import { ENDPOINTS, CONFIG } from '../config.js';
 import { requireSession, initUserHeader } from '../auth.js';

@@ -1,4 +1,3 @@
-"""Consulta del dispositivo del senderista; sin revelar coordenadas al propietario."""
 from flask import Blueprint, g, jsonify
 from .db import connect_db
 from .security import error, require_role
@@ -34,3 +33,33 @@ def my_device():
     if item['nivel_energia'] is not None:
         item['nivel_energia'] = float(item['nivel_energia'])
     return jsonify({'data': item})
+
+
+@bp.post('/vincular')
+@require_role('senderista')
+def link_existing_device():
+    """Permite reclamar un dispositivo libre a un senderista previamente registrado."""
+    from flask import request
+    data = request.get_json(silent=True)
+    code = data.get('codigo_vinculacion') if isinstance(data, dict) else None
+    if not isinstance(code, str) or not 1 <= len(code.strip()) <= 20:
+        return error('Indica un código de vinculación válido.')
+    with connect_db() as db, db.cursor() as cur:
+        cur.execute('''SELECT id_dispositivo FROM public.dispositivos
+                       WHERE id_senderista=%s LIMIT 1 FOR UPDATE''', (g.auth_user['id_usuario'],))
+        if cur.fetchone():
+            return error('Tu cuenta ya tiene un dispositivo asociado.', 409)
+        cur.execute('''SELECT id_dispositivo FROM public.dispositivos
+                       WHERE codigo_vinculacion=%s AND id_senderista IS NULL
+                       FOR UPDATE''', (code.strip(),))
+        device = cur.fetchone()
+        if not device:
+            return error('Código inválido o dispositivo asignado a otra cuenta.', 409)
+        cur.execute('''UPDATE public.dispositivos SET id_senderista=%s
+                       WHERE id_dispositivo=%s AND id_senderista IS NULL
+                       RETURNING id_dispositivo, codigo_vinculacion, estado''',
+                    (g.auth_user['id_usuario'], device['id_dispositivo']))
+        row = cur.fetchone()
+        if not row:
+            return error('No se pudo vincular el dispositivo.', 409)
+    return jsonify({'data': row}), 200
